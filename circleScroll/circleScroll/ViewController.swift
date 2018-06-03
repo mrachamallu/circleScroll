@@ -15,7 +15,9 @@ class ViewController: UIViewController {
     let numberTextView: UITextView = {
         let textView = UITextView(frame: CGRect(x: 20.0, y: 90.0, width: 250.0, height: 100.0))
         textView.text = "100"
-        textView.font = UIFont.boldSystemFont(ofSize: 20)
+        textView.font = UIFont.boldSystemFont(ofSize: 80)
+        textView.textColor = .white
+        textView.backgroundColor = .clear
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textAlignment = .center
         textView.isEditable = false
@@ -25,7 +27,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = .black
+        view.backgroundColor = .black
         // Do any additional setup after loading the view, typically from a nib.
     
         let center = view.center
@@ -41,7 +43,8 @@ class ViewController: UIViewController {
         view.layer.addSublayer(trackLayer)
         
         //animated layer
-        shapeLayer.path = circularPath.cgPath
+        let numberPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: CGFloat.pi, clockwise: true)
+        shapeLayer.path = numberPath.cgPath
         shapeLayer.strokeColor = UIColor.red.cgColor
         shapeLayer.lineWidth = 15
         shapeLayer.lineCap = kCALineCapRound
@@ -52,8 +55,8 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         
         //adding the numbers
-        setupLayout()
         view.addSubview(numberTextView)
+        setupLayout()
         
     }
     @objc private func handleTap(){
@@ -66,11 +69,14 @@ class ViewController: UIViewController {
         shapeLayer.add(basicAnimation, forKey: "urSoBasic")
     }
 
+    //programmatically add constraints
     private func setupLayout() {
         //numberTextView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
         //numberTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
         //numberTextView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         //numberTextView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        numberTextView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        numberTextView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
