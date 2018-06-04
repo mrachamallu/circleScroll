@@ -11,10 +11,11 @@ import UIKit
 class ViewController: UIViewController {
 
     let shapeLayer = CAShapeLayer() //made this global so handleTap can access it
+    var counter = 0;
     
     let numberTextView: UITextView = {
         let textView = UITextView(frame: CGRect(x: 20.0, y: 90.0, width: 250.0, height: 100.0))
-        textView.text = "100"
+        textView.text = "0"
         textView.font = UIFont.boldSystemFont(ofSize: 80)
         textView.textColor = .white
         textView.backgroundColor = .clear
@@ -45,7 +46,7 @@ class ViewController: UIViewController {
         //animated layer
         let numberPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: CGFloat.pi, clockwise: true)
         shapeLayer.path = numberPath.cgPath
-        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeColor = UIColor.blue.cgColor
         shapeLayer.lineWidth = 15
         shapeLayer.lineCap = kCALineCapRound
         shapeLayer.fillColor = UIColor.clear.cgColor
@@ -59,22 +60,31 @@ class ViewController: UIViewController {
         setupLayout()
         
     }
+
     @objc private func handleTap(){
         print("Attempting to animate stroke")
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation.toValue = 1
-        basicAnimation.duration = 2
+        basicAnimation.duration = 1.5
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
+        //counter
+        //counter = 0;
+        var _ = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
+        
+        
         shapeLayer.add(basicAnimation, forKey: "urSoBasic")
+    }
+    
+    @objc func update() {
+        if(counter < 75) {
+            counter = counter + 1;
+            numberTextView.text = String(counter)
+        }
     }
 
     //programmatically add constraints
     private func setupLayout() {
-        //numberTextView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
-        //numberTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-        //numberTextView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        //numberTextView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         numberTextView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         numberTextView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
