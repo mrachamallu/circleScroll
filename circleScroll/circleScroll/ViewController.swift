@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         //animated layer
         let numberPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: CGFloat.pi, clockwise: true)
         shapeLayer.path = numberPath.cgPath
-        shapeLayer.strokeColor = UIColor.blue.cgColor
+        shapeLayer.strokeColor = UIColor.green.cgColor
         shapeLayer.lineWidth = 15
         shapeLayer.lineCap = kCALineCapRound
         shapeLayer.fillColor = UIColor.clear.cgColor
