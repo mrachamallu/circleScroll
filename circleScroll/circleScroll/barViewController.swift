@@ -17,18 +17,32 @@ class barViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let rectPath1 = UIBezierPath(rect: CGRect(x: 64, y: 64, width: 160, height: 160))
+        //first bar
+        let rectPath1 = UIBezierPath(rect: CGRect(x: 64, y: 200, width: 64, height: 160))
         firstShape.path = rectPath1.cgPath
         firstShape.fillColor = UIColor.purple.cgColor
         
+        //second bar
+        let rectPath2 = UIBezierPath(rect: CGRect(x: 134, y: 200, width: 64, height: 160))
+        secondShape.path = rectPath2.cgPath
+        secondShape.fillColor = UIColor.cyan.cgColor
+        
+        //third bar
+        let rectPath3 = UIBezierPath(rect: CGRect(x: 204, y: 200, width: 64, height: 160))
+        thirdShape.path = rectPath3.cgPath
+        thirdShape.fillColor = UIColor.orange.cgColor
+        
+        //add layers
         view.layer.addSublayer(firstShape)
+        view.layer.addSublayer(secondShape)
+        view.layer.addSublayer(thirdShape)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
     }
 
     @objc private func handleTap() {
         print("Attempt to grow bar graph")
         let basicAnimation = CABasicAnimation(keyPath: "yayMe")
-        basicAnimation.toValue = 1
+        //basicAnimation.toValue = rectPath1
         basicAnimation.duration = 1.5
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
