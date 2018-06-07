@@ -69,7 +69,7 @@ class ViewController: UIViewController {
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
         //counter
-        //counter = 0;
+        counter = 0;
         var _ = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
         
         
